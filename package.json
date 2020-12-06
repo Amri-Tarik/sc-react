@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Amri-Tarik/sc-react/issues"
   },
-  "homepage": "https://github.com/Amri-Tarik/sc-react#readme"
+  "homepage": "https://github.com/Amri-Tarik/sc-react#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2"
+  }
 }
