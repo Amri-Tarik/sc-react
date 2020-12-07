@@ -1,6 +1,7 @@
 import { Component } from "react";
 import "./App.css";
 import Login from "./login";
+import Main from "./main_screen";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,10 +12,12 @@ class App extends Component {
   state = {
     logged: false,
     username: "",
+    scribe: false,
   };
   render() {
-    const logstate = (username) => {
-      this.setState({ logged: true, username: username });
+    const logstate = (username, scribe) => {
+      this.setState({ logged: true, username: username, scribe: scribe });
+      console.log(scribe);
     };
     return (
       <div className="App">
@@ -41,7 +44,13 @@ class App extends Component {
             <Typography variant="h5" style={{ color: "white" }}>
               <b>
                 {this.state.logged ? (
-                  <span>Welcome {this.state.username}</span>
+                  <span>
+                    Welcome{" "}
+                    <span style={{ color: "#f47521" }}>
+                      {this.state.username}
+                    </span>{" "}
+                    o7
+                  </span>
                 ) : (
                   <span>Please log in, CMDR </span>
                 )}
@@ -50,9 +59,9 @@ class App extends Component {
           </Paper>
         </AppBar>
         {this.state.logged ? (
-          <span />
+          <Main scribe={this.state.scribe} />
         ) : (
-          <Login logged={(username) => logstate(username)} />
+          <Login logged={(username, scribe) => logstate(username, scribe)} />
         )}
       </div>
     );

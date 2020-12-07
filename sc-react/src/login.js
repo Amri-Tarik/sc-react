@@ -41,7 +41,10 @@ class Login extends Component {
           this.setState(res.data);
           if (!res.data.error) {
             console.log(res.data);
-            this.props.logged(res.data.role + " " + this.state.username);
+            this.props.logged(
+              res.data.role + " " + this.state.username,
+              res.data.scribe
+            );
           }
         });
     };
@@ -72,11 +75,13 @@ class Login extends Component {
                   <ThemeProvider theme={theme}>
                     <Grid item xs={12}>
                       {this.state.error ? (
-                        <span style={{ color: "red" }}>
+                        <span style={{ color: "red", fontSize: "1em" }}>
                           Wrong credentials, try again
                         </span>
                       ) : (
-                        <span />
+                        <span style={{ fontSize: "1.5em" }}>
+                          Please enter your credentials :
+                        </span>
                       )}
                     </Grid>
                     <Grid item xs={12}>
