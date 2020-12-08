@@ -133,7 +133,7 @@ class EditNotes extends Component {
           <Grid item>
             {" "}
             <span style={{ color: "green", fontSize: "1em" }}>
-              password changed successfully
+              notes saved successfully
             </span>
           </Grid>
         ) : (
