@@ -7,7 +7,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import axios from "axios";
+import ChgPass from "./chg_pass";
+import Notes from "./notes";
+import EditNotes from "./editnotes";
+// import axios from "axios";
 
 const theme = createMuiTheme({
   palette: {
@@ -29,40 +32,40 @@ const theme = createMuiTheme({
 class Main extends Component {
   state = {
     value: 0,
-    squadron_size: 0,
+    squadron_size: "0 (will become active once i have inara api access)",
   };
-  constructor(props) {
-    super(props);
-    var currentTime = new Date();
-    let data = {
-      header: {
-        appName: "Second Chances DashBoard",
-        appVersion: "0.1",
-        isDeveloped: true,
-        APIkey: "5eehd7sxejok04s4g0k0gwwg8wgwokk8k0ock4w",
-        commanderName: "PEPEGA_OVERLORD",
-        commanderFrontierID: "b3l488p",
-      },
-      events: [
-        {
-          eventCustomID: 13458,
-          eventName: "getCommanderProfile",
-          eventTimestamp: currentTime.toISOString(),
-          eventData: {
-            searchName: "PEPEGA_OVERLORD",
-          },
-        },
-      ],
-    };
-    axios
-      .post("https://inara.cz/inapi/v1/", data)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // constructor(props) {
+  //   super(props);
+  //   var currentTime = new Date();
+  //   let data = {
+  //     header: {
+  //       appName: "Second Chances DashBoard",
+  //       appVersion: "0.1",
+  //       isDeveloped: true,
+  //       APIkey: "5eehd7sxejok04s4g0k0gwwg8wgwokk8k0ock4w",
+  //       commanderName: "PEPEGA_OVERLORD",
+  //       commanderFrontierID: "b3l488p",
+  //     },
+  //     events: [
+  //       {
+  //         eventCustomID: 13458,
+  //         eventName: "getCommanderProfile",
+  //         eventTimestamp: currentTime.toISOString(),
+  //         eventData: {
+  //           searchName: "PEPEGA_OVERLORD",
+  //         },
+  //       },
+  //     ],
+  //   };
+  //   axios
+  //     .post("https://inara.cz/inapi/v1/", data)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
   render() {
     const TabPanel = (props) => {
       const { children, value, index, ...other } = props;
@@ -77,7 +80,7 @@ class Main extends Component {
         >
           {value === index && (
             <Box p={3}>
-              <Typography>{children}</Typography>
+              <Typography component={"span"}>{children}</Typography>
             </Box>
           )}
         </div>
@@ -90,7 +93,7 @@ class Main extends Component {
     return (
       <div
         style={{
-          height: "200px",
+          height: "300px",
           position: "absolute",
           top: "0",
           bottom: "0",
@@ -106,10 +109,10 @@ class Main extends Component {
               <Paper style={{ backgroundColor: "#354e6b" }}>
                 <AppBar position="static">
                   <Tabs
-                    variant="fullWidth"
+                    variant="scrollable"
+                    scrollButtons="auto"
                     value={this.state.value}
                     onChange={handleChange}
-                    aria-label="simple tabs example"
                   >
                     <Tab label="Dashboard" value={0} />
                     <Tab label="View wingmen data" value={1} />
@@ -122,16 +125,22 @@ class Main extends Component {
                       value={2}
                       disabled={!this.props.scribe}
                     />
+                    <Tab label="Change password" value={3} />
                   </Tabs>
                 </AppBar>
                 <TabPanel value={this.state.value} index={0}>
                   <span>Squadron size : {this.state.squadron_size}</span>
+                  <br />
+                  <span>and other data i have yet to add to this page :p</span>
                 </TabPanel>
                 <TabPanel value={this.state.value} index={1}>
-                  Item Two
+                  <Notes />
                 </TabPanel>
                 <TabPanel value={this.state.value} index={2}>
-                  Item Three
+                  <EditNotes />
+                </TabPanel>
+                <TabPanel value={this.state.value} index={3}>
+                  <ChgPass username={this.props.username} />
                 </TabPanel>
               </Paper>
             </Grid>

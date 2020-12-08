@@ -12,11 +12,17 @@ class App extends Component {
   state = {
     logged: false,
     username: "",
+    rank: "",
     scribe: false,
   };
   render() {
-    const logstate = (username, scribe) => {
-      this.setState({ logged: true, username: username, scribe: scribe });
+    const logstate = (role, username, scribe) => {
+      this.setState({
+        logged: true,
+        username: username,
+        scribe: scribe,
+        rank: role,
+      });
       console.log(scribe);
     };
     return (
@@ -41,13 +47,17 @@ class App extends Component {
               padding: "10px",
             }}
           >
-            <Typography variant="h5" style={{ color: "white" }}>
+            <Typography
+              component={"span"}
+              variant="h5"
+              style={{ color: "white" }}
+            >
               <b>
                 {this.state.logged ? (
                   <span>
                     Welcome{" "}
                     <span style={{ color: "#f47521" }}>
-                      {this.state.username}
+                      {this.state.rank + " " + this.state.username}
                     </span>{" "}
                     o7
                   </span>
@@ -59,9 +69,13 @@ class App extends Component {
           </Paper>
         </AppBar>
         {this.state.logged ? (
-          <Main scribe={this.state.scribe} />
+          <Main scribe={this.state.scribe} username={this.state.username} />
         ) : (
-          <Login logged={(username, scribe) => logstate(username, scribe)} />
+          <Login
+            logged={(role, username, scribe) =>
+              logstate(role, username, scribe)
+            }
+          />
         )}
       </div>
     );

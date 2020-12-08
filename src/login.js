@@ -42,7 +42,8 @@ class Login extends Component {
           if (!res.data.error) {
             console.log(res.data);
             this.props.logged(
-              res.data.role + " " + this.state.username,
+              res.data.role,
+              this.state.username,
               res.data.scribe
             );
           }
