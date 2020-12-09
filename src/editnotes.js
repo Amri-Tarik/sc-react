@@ -77,6 +77,9 @@ class EditNotes extends Component {
               <Grid item md={2}></Grid>
               <Grid item xs={8} md={5}>
                 <Autocomplete
+                  onChange={(e, newValue) => {
+                    this.setState({ search: newValue });
+                  }}
                   options={wingmen}
                   getOptionLabel={(option) => option}
                   renderInput={(params) => (
@@ -85,9 +88,6 @@ class EditNotes extends Component {
                       fullWidth
                       label="search"
                       color="secondary"
-                      onChange={(e) => {
-                        this.setState({ search: e.target.value });
-                      }}
                     />
                   )}
                 />
