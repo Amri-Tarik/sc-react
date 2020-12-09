@@ -3,6 +3,15 @@ import Grid from "@material-ui/core/Grid";
 import { Button, TextField } from "@material-ui/core";
 // import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+
+const wingmen = [
+  "SargonTheSwitch",
+  "Michael Erik Holdar",
+  "pepega overlord",
+  "Ender",
+  "theredbutton731",
+];
 
 class EditNotes extends Component {
   state = {
@@ -67,13 +76,20 @@ class EditNotes extends Component {
             >
               <Grid item md={2}></Grid>
               <Grid item xs={8} md={5}>
-                <TextField
-                  fullWidth
-                  label="search"
-                  color="secondary"
-                  onChange={(e) => {
-                    this.setState({ search: e.target.value });
-                  }}
+                <Autocomplete
+                  options={wingmen}
+                  getOptionLabel={(option) => option}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      label="search"
+                      color="secondary"
+                      onChange={(e) => {
+                        this.setState({ search: e.target.value });
+                      }}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={4} md={2}>

@@ -30,41 +30,11 @@ const theme = createMuiTheme({
 });
 
 class Main extends Component {
-  state = {
-    value: 0,
-    squadron_size: "0 (will become active once i have inara api access)",
-  };
-  constructor(props) {
-    super(props);
-    var currentTime = new Date();
-    let data = {
-      header: {
-        appName: "Second Chances DashBoard",
-        appVersion: "0.1",
-        isDeveloped: true,
-        APIkey: "f8esm8mqr1sssc4c8kkkk84oo44ssws0ks440g",
-        commanderName: "PEPEGA_OVERLORD",
-        commanderFrontierID: "b3l488p",
-      },
-      events: [
-        {
-          eventCustomID: 13458,
-          eventName: "getCommanderProfile",
-          eventTimestamp: currentTime.toISOString(),
-          eventData: {
-            searchName: "PEPEGA_OVERLORD",
-          },
-        },
-      ],
-    };
-    axios
-      .post("https://inara.cz/inapi/v1/", data)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  state = { value: 0, sqd_size: "loading" };
+  componentDidMount() {
+    axios.post("https://SC-replit.uraveragegeek.repl.co/sqd").then((res) => {
+      this.setState({ sqd_size: res.data });
+    });
   }
   render() {
     const TabPanel = (props) => {
@@ -129,9 +99,12 @@ class Main extends Component {
                   </Tabs>
                 </AppBar>
                 <TabPanel value={this.state.value} index={0}>
-                  <span>Squadron size : {this.state.squadron_size}</span>
-                  <br />
-                  <span>and other data i have yet to add to this page :p</span>
+                  <Typography variant="h6">
+                    Squadron size :{" "}
+                    <span style={{ color: "#f47521" }}>
+                      {this.state.sqd_size}
+                    </span>
+                  </Typography>
                 </TabPanel>
                 <TabPanel value={this.state.value} index={1}>
                   <Notes />

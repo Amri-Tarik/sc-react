@@ -3,21 +3,44 @@ import Grid from "@material-ui/core/Grid";
 import { Button, TextField } from "@material-ui/core";
 // import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+
+const wingmen = [
+  "SargonTheSwitch",
+  "Michael Erik Holdar",
+  "pepega overlord",
+  "Ender",
+  "theredbutton731",
+];
 
 class Notes extends Component {
   state = {
     search: "",
     searched: false,
     notes: "none\n\n\n",
-    sqd_rank: "waiting on inara api",
-    allegiance: "better be federation...",
-    power: "what a simp",
-    main_ship: "in case you didn't notice, i'm just filling up stuff...",
+    sqd_rank: "loading...",
+    allegiance: "loading...",
+    power: "loading...",
+    inaraURL: "loading...",
     found: true,
   };
   render() {
     const send_data = (e) => {
       e.preventDefault();
+      console.log(this.state.search);
+      axios
+        .post("https://SC-replit.uraveragegeek.repl.co/cmdr", {
+          username: this.state.search,
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.setState({
+            allegiance: res.data.allegience,
+            sqd_rank: res.data.rank,
+            power: res.data.power,
+            inaraURL: res.data.inaraURL,
+          });
+        });
       axios
         .post("https://SC-replit.uraveragegeek.repl.co/notes", {
           username: this.state.search,
@@ -55,13 +78,20 @@ class Notes extends Component {
             >
               <Grid item md={2}></Grid>
               <Grid item xs={8} md={5}>
-                <TextField
-                  fullWidth
-                  label="search"
-                  color="secondary"
-                  onChange={(e) => {
-                    this.setState({ search: e.target.value });
+                <Autocomplete
+                  onChange={(e, newValue) => {
+                    this.setState({ search: newValue });
                   }}
+                  options={wingmen}
+                  getOptionLabel={(option) => option}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      label="search"
+                      color="secondary"
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={4} md={2}>
@@ -137,9 +167,9 @@ class Notes extends Component {
                 <TextField
                   fullWidth
                   focused
-                  value={this.state.main_ship}
+                  value={this.state.inaraURL}
                   variant="outlined"
-                  label="Main ship"
+                  label="inara URL"
                   color="secondary"
                 />
               </Grid>
