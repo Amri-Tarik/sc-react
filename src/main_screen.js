@@ -10,7 +10,7 @@ import Box from "@material-ui/core/Box";
 import ChgPass from "./chg_pass";
 import Notes from "./notes";
 import EditNotes from "./editnotes";
-// import axios from "axios";
+import axios from "axios";
 
 const theme = createMuiTheme({
   palette: {
@@ -34,38 +34,38 @@ class Main extends Component {
     value: 0,
     squadron_size: "0 (will become active once i have inara api access)",
   };
-  // constructor(props) {
-  //   super(props);
-  //   var currentTime = new Date();
-  //   let data = {
-  //     header: {
-  //       appName: "Second Chances DashBoard",
-  //       appVersion: "0.1",
-  //       isDeveloped: true,
-  //       APIkey: "5eehd7sxejok04s4g0k0gwwg8wgwokk8k0ock4w",
-  //       commanderName: "PEPEGA_OVERLORD",
-  //       commanderFrontierID: "b3l488p",
-  //     },
-  //     events: [
-  //       {
-  //         eventCustomID: 13458,
-  //         eventName: "getCommanderProfile",
-  //         eventTimestamp: currentTime.toISOString(),
-  //         eventData: {
-  //           searchName: "PEPEGA_OVERLORD",
-  //         },
-  //       },
-  //     ],
-  //   };
-  //   axios
-  //     .post("https://inara.cz/inapi/v1/", data)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  constructor(props) {
+    super(props);
+    var currentTime = new Date();
+    let data = {
+      header: {
+        appName: "Second Chances DashBoard",
+        appVersion: "0.1",
+        isDeveloped: true,
+        APIkey: "f8esm8mqr1sssc4c8kkkk84oo44ssws0ks440g",
+        commanderName: "PEPEGA_OVERLORD",
+        commanderFrontierID: "b3l488p",
+      },
+      events: [
+        {
+          eventCustomID: 13458,
+          eventName: "getCommanderProfile",
+          eventTimestamp: currentTime.toISOString(),
+          eventData: {
+            searchName: "PEPEGA_OVERLORD",
+          },
+        },
+      ],
+    };
+    axios
+      .post("https://inara.cz/inapi/v1/", data)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   render() {
     const TabPanel = (props) => {
       const { children, value, index, ...other } = props;
